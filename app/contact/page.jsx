@@ -1,4 +1,4 @@
-import ContactSection from "@/components/HomeContact";
+import ContactSection from "@/components/ContactSection";
 
 export const metadata = {
   title: "Contact",
