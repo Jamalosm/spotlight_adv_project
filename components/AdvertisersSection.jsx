@@ -281,7 +281,7 @@ export default function AdvertisersSection() {
 
           <SectionHeading
             title="What Makes It Effective"
-            align="center"
+            align="left"
           />
 
           <div className="max-w-4xl mx-auto">

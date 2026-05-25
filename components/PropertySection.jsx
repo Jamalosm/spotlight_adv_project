@@ -1,4 +1,6 @@
-import WhatsAppLeadForm from "@/components/forms/WhatsAppLeadForm";
+"use client";
+
+import { useState } from "react";
 
 const propertyFieldClass = `
   w-full
@@ -21,16 +23,12 @@ const propertyFields = [
   {
     id: "property-owner-name",
     name: "name",
-    label: "Owner Name",
-    messageLabel: "Name",
     placeholder: "Owner Name",
     className: propertyFieldClass,
   },
   {
     id: "property-email",
     name: "email",
-    label: "Email",
-    messageLabel: "Email",
     placeholder: "Email",
     type: "email",
     className: propertyFieldClass,
@@ -38,8 +36,6 @@ const propertyFields = [
   {
     id: "property-phone",
     name: "phone",
-    label: "Phone Number",
-    messageLabel: "Phone",
     placeholder: "Phone Number",
     type: "tel",
     className: propertyFieldClass,
@@ -47,8 +43,6 @@ const propertyFields = [
   {
     id: "property-details",
     name: "message",
-    label: "Property Details",
-    messageLabel: "Details",
     placeholder: "Property Details",
     rows: 5,
     className: `${propertyFieldClass} resize-none`,
@@ -71,7 +65,6 @@ function HorizontalCard({ number, title, desc }) {
 
       <div className="grid md:grid-cols-[120px_1fr_2fr] gap-4 md:gap-8 items-start">
 
-        {/* Number */}
         <div
           className="
             text-yellow-400/40
@@ -84,10 +77,8 @@ function HorizontalCard({ number, title, desc }) {
           {number}
         </div>
 
-        {/* Title */}
         <div>
 
-          {/* Small Line */}
           <div className="w-14 h-[2px] bg-gradient-to-r from-yellow-400 to-transparent rounded-full mb-5" />
 
           <h3
@@ -106,7 +97,6 @@ function HorizontalCard({ number, title, desc }) {
 
         </div>
 
-        {/* Description */}
         <div>
 
           <p
@@ -133,6 +123,78 @@ function HorizontalCard({ number, title, desc }) {
 }
 
 export default function PropertySection() {
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    setSuccess(false);
+
+    try {
+
+      const response = await fetch(
+        "https://api.web3forms.com/submit",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            access_key: "770301f1-682c-4907-9bc1-188fca5cd1fa",
+
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone,
+            message: formData.message,
+
+            subject: "Property Lead",
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.success) {
+
+        setSuccess(true);
+
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+
+      }
+
+    } catch (error) {
+
+      console.log(error);
+
+    } finally {
+
+      setLoading(false);
+
+    }
+  };
+
   return (
     <section className="bg-black py-20 md:py-28 px-4 sm:px-6 md:px-10 text-white">
 
@@ -141,7 +203,6 @@ export default function PropertySection() {
         {/* HERO */}
         <div className="text-center mb-20 md:mb-32">
 
-          {/* Tag */}
           <div className="flex items-center justify-center gap-3 sm:gap-6 mb-6 md:mb-8">
 
             <div className="w-10 sm:w-20 h-[1px] bg-gradient-to-r from-transparent to-yellow-400/60" />
@@ -165,7 +226,6 @@ export default function PropertySection() {
 
           </div>
 
-          {/* Heading */}
           <h1
             className="
               text-3xl
@@ -182,7 +242,6 @@ export default function PropertySection() {
             Monetise Your Property
           </h1>
 
-          {/* Paragraph */}
           <div className="flex justify-center">
 
             <p
@@ -205,7 +264,6 @@ export default function PropertySection() {
               Turn your building or land into a steady long-term
               source of income through premium outdoor advertising.
 
-              {/* Underline */}
               <span className="absolute left-0 -bottom-4 w-full h-[1px] bg-gradient-to-r from-transparent via-yellow-400/60 to-transparent" />
 
             </p>
@@ -312,30 +370,68 @@ export default function PropertySection() {
 
           </div>
 
-          {/* Form */}
-          <WhatsAppLeadForm
-            fields={propertyFields}
-            messagePrefix="Property Lead"
-            formClassName="space-y-4 sm:space-y-6"
-            buttonLabel="Submit via WhatsApp →"
-            buttonClassName="
-              inline-flex
-              items-center
-              justify-center
-              gap-3
-              bg-yellow-400
-              text-black
-              px-7
-              md:px-10
-              py-3.5
-              md:py-4
-              rounded-full
-              font-semibold
-              hover:scale-105
-              transition-all
-              duration-300
-            "
-          />
+          {/* FORM */}
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4 sm:space-y-6"
+          >
+
+            {propertyFields.map((field) =>
+              field.rows ? (
+                <textarea
+                  key={field.id}
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  rows={field.rows}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  className={field.className}
+                />
+              ) : (
+                <input
+                  key={field.id}
+                  type={field.type || "text"}
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  className={field.className}
+                />
+              )
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="
+                inline-flex
+                items-center
+                justify-center
+                gap-3
+                bg-yellow-400
+                text-black
+                px-7
+                md:px-10
+                py-3.5
+                md:py-4
+                rounded-full
+                font-semibold
+                hover:scale-105
+                transition-all
+                duration-300
+                disabled:opacity-50
+              "
+            >
+              {loading ? "Sending..." : "Submit →"}
+            </button>
+
+            {success && (
+              <p className="text-green-400 text-sm pt-2">
+                Property details submitted successfully.
+              </p>
+            )}
+
+          </form>
 
         </div>
 
