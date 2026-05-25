@@ -1,0 +1,23 @@
+.git
+.next
+node_modules
+
+.env
+.env.*
+!.env.example
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+.DS_Store
+Thumbs.db
+
+README.md
+CLAUDE.md
+AGENTS.md
+docker-compose.yml
+Dockerfile
+
+Black Elegant Company Business Card.svg

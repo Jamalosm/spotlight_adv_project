@@ -1,0 +1,25 @@
+services:
+  spotlight-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    image: spotlight-advertising:latest
+    container_name: spotlight-web
+    init: true
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: "1"
+      PORT: "3000"
+      HOSTNAME: "0.0.0.0"
+    ports:
+      - "3000:3000"
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
