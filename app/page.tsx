@@ -15,10 +15,11 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <Hero />
+       <Hero />
       <WhatWeDo />
       <Upcoming />
       <CTA />
+       
       <HomeContact />
     </>
   );

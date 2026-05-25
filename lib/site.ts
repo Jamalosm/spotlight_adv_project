@@ -9,9 +9,9 @@ export const siteConfig = {
   whatsappNumber: "918525867890",
   navItems: [
     { name: "Home", path: "/" },
-    { name: "About us", path: "/about" },
+    { name: "About Us", path: "/about" },
     { name: "Advertisers", path: "/advertisers" },
-    { name: "Property owners", path: "/property" },
+    { name: "Property Owners", path: "/property" },
     { name: "Contact", path: "/contact" },
   ],
 } as const;

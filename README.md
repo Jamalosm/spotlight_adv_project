@@ -419,3 +419,7 @@ Spotlight Advertising Website is designed with a premium modern UI approach focu
 * User experience
 
 The project follows modern frontend development practices suitable for startup-level and enterprise-level web applications.
+
+
+
+770301f1-682c-4907-9bc1-188fca5cd1fa

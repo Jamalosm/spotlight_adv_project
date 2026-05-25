@@ -83,7 +83,7 @@ export default function Navbar() {
 
           {/* CTA */}
           <Link
-            href="/contact"
+            href={pathname === "/contact" ? "#enquiry-form" : "/contact"}
             className="hidden md:flex items-center justify-center bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 text-black px-5 py-2.5 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(250,204,21,0.35)]"
           >
             Enquire Now
