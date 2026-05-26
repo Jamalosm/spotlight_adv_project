@@ -297,6 +297,7 @@ export default function ContactSection() {
                   mx-auto
                   font-light
                 "
+                    id="enquiry-form"
               >
                 We’ll get back to you within 24 hours.
               </p>
@@ -307,6 +308,7 @@ export default function ContactSection() {
             <form
               onSubmit={handleSubmit}
               className="space-y-6"
+          
             >
 
               {/* ROW 1 */}
