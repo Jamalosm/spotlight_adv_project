@@ -14,35 +14,71 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://spotlightooh.com"),
+
   title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
+    default: "Spotlight Advertising | Outdoor Advertising Agency",
+    template: "%s | Spotlight Advertising",
   },
-  description: siteConfig.description,
-  metadataBase: new URL(siteConfig.url),
-  applicationName: siteConfig.name,
+
+  description:
+    "Spotlight Advertising provides premium outdoor advertising, billboard branding, transit media, bus shelter ads, airport ads, and OOH marketing solutions across India.",
+
+  keywords: [
+    "Spotlight Advertising",
+    "OOH Advertising",
+    "Outdoor Advertising",
+    "Billboard Advertising",
+    "Transit Advertising",
+    "Airport Advertising",
+    "Bus Shelter Advertising",
+    "Advertising Agency Chennai",
+  ],
+
+  applicationName: "Spotlight Advertising",
+
   alternates: {
-    canonical: "/",
+    canonical: "https://spotlightooh.com",
   },
+
   openGraph: {
-    title: siteConfig.name,
-    description: siteConfig.description,
-    url: "/",
-    type: "website",
-    siteName: siteConfig.name,
+    title: "Spotlight Advertising",
+    description:
+      "Premium Outdoor Advertising & Branding Solutions.",
+    url: "https://spotlightooh.com",
+    siteName: "Spotlight Advertising",
     locale: "en_IN",
+    type: "website",
+
+    images: [
+      {
+        url: "/Bb.png",
+        width: 1200,
+        height: 630,
+        alt: "Spotlight Advertising",
+      },
+    ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
+    title: "Spotlight Advertising",
+    description:
+      "Premium Outdoor Advertising & Branding Solutions.",
+    images: ["/Bb.png"],
   },
+
   robots: {
     index: true,
     follow: true,
   },
-};
 
+icons: {
+  icon: "/icon.png",
+  shortcut: "/icon.png",
+  apple: "/icon.png",
+},
+};
 export default function RootLayout({
   children,
 }: {

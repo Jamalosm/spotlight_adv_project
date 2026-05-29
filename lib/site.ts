@@ -1,7 +1,8 @@
 export const siteConfig = {
   name: "Spotlight Advertising",
   shortName: "Spotlight OOH",
-  description: "Premium Outdoor Advertising",
+  description:  "Premium Outdoor Advertising, Billboard Branding, Transit Media and OOH Advertising Solutions.",
+
   url: "https://spotlightooh.com",
   email: "contact@spotlightooh.com",
   phoneDisplay: "+91 85258 67890",
