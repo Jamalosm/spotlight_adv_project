@@ -157,7 +157,7 @@ export default function HomeContact() {
 
           </div>
 
-          <h1
+          <h2
             className="
               text-3xl
               sm:text-4xl
@@ -171,7 +171,7 @@ export default function HomeContact() {
             "
           >
             Let’s Connect
-          </h1>
+          </h2>
 
           <div className="flex md:justify-center">
 

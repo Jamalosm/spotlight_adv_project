@@ -4,6 +4,7 @@ export const siteConfig = {
   description:  "Premium Outdoor Advertising, Billboard Branding, Transit Media and OOH Advertising Solutions.",
 
   url: "https://spotlightooh.com",
+  ogImage: "https://spotlightooh.com/Bb.png",
   email: "contact@spotlightooh.com",
   phoneDisplay: "+91 85258 67890",
   phoneHref: "+918525867890",
@@ -24,3 +25,51 @@ export const routes = [
   { path: "/property", priority: 0.9 },
   { path: "/contact", priority: 0.7 },
 ] as const;
+
+export function absoluteUrl(path = "/") {
+  if (path === "/") {
+    return siteConfig.url;
+  }
+
+  return new URL(path, siteConfig.url).toString();
+}
+
+export function createSocialMetadata({
+  title,
+  description,
+  path = "/",
+}: {
+  title: string;
+  description: string;
+  path?: string;
+}) {
+  const url = absoluteUrl(path);
+
+  return {
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: siteConfig.name,
+      locale: "en_IN",
+      type: "website",
+      images: [
+        {
+          url: siteConfig.ogImage,
+          width: 1200,
+          height: 630,
+          alt: siteConfig.name,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [siteConfig.ogImage],
+    },
+  };
+}

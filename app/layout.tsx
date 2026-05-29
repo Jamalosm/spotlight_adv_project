@@ -13,8 +13,40 @@ const sora = Sora({
   display: "swap",
 });
 
+const organizationJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": ["Organization", "LocalBusiness"],
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: `${siteConfig.url}/logo.png`,
+  description:
+    "Spotlight Advertising provides premium outdoor advertising, billboard branding, transit media, bus shelter ads, airport ads, and OOH marketing solutions across India.",
+  email: siteConfig.email,
+  telephone: siteConfig.phoneDisplay,
+  areaServed: [
+    {
+      "@type": "City",
+      name: "Chennai",
+    },
+    {
+      "@type": "Country",
+      name: "India",
+    },
+  ],
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: siteConfig.email,
+      telephone: siteConfig.phoneDisplay,
+      areaServed: "IN",
+      availableLanguage: "en",
+    },
+  ],
+});
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://spotlightooh.com"),
+  metadataBase: new URL(siteConfig.url),
 
   title: {
     default: "Spotlight Advertising | Outdoor Advertising Agency",
@@ -38,24 +70,24 @@ export const metadata: Metadata = {
   applicationName: "Spotlight Advertising",
 
   alternates: {
-    canonical: "https://spotlightooh.com",
+    canonical: `${siteConfig.url}/`,
   },
 
   openGraph: {
     title: "Spotlight Advertising",
     description:
       "Premium Outdoor Advertising & Branding Solutions.",
-    url: "https://spotlightooh.com",
-    siteName: "Spotlight Advertising",
+    url: `${siteConfig.url}/`,
+    siteName: siteConfig.name,
     locale: "en_IN",
     type: "website",
 
     images: [
       {
-        url: "/Bb.png",
+        url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: "Spotlight Advertising",
+        alt: siteConfig.name,
       },
     ],
   },
@@ -65,7 +97,7 @@ export const metadata: Metadata = {
     title: "Spotlight Advertising",
     description:
       "Premium Outdoor Advertising & Branding Solutions.",
-    images: ["/Bb.png"],
+    images: [siteConfig.ogImage],
   },
 
   robots: {
@@ -73,11 +105,11 @@ export const metadata: Metadata = {
     follow: true,
   },
 
-icons: {
-  icon: "/icon.png",
-  shortcut: "/icon.png",
-  apple: "/icon.png",
-},
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/icon.png",
+  },
 };
 export default function RootLayout({
   children,
@@ -86,6 +118,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: organizationJsonLd }}
+        />
+      </head>
       <body
         className={`
           ${sora.className}
